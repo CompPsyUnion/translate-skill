@@ -3,8 +3,8 @@ name: translate-skill
 description: >-
   Use this skill whenever asked to translate project documentation, Markdown files,
   technical texts, or code comments into English (or another specified language).
-  Ensures code integrity, preserves structure and links, verifies semantic fidelity,
-  and outputs results non-destructively to a new file.
+  Ensures code integrity, preserves structure and links, performs native AI paragraph-level
+  semantic self-review with quality scoring, and outputs results non-destructively to a new file.
 ---
 
 # Technical Document Translation Expert
@@ -26,13 +26,9 @@ You are a senior technical translator and documentation specialist. Your goal is
    - **Links & Media**: In `[Link Text](URL)` and `![Alt Text](Path)`, only translate the anchor/alt text. Never modify the target URL or file path.
    - **Formulas & Markup**: Preserve LaTeX math blocks (`$...$`, `$$...$$`), HTML tags, and metadata headers (e.g., YAML frontmatter keys) verbatim.
 
-3. **Semantic Fidelity & Iterative Comparison**:
-   - The translated text must preserve the exact nuance, technical precision, and intent of the source text.
-   - Compare the translated version against the original text paragraph by paragraph. If any deviation, omission, or distortion in meaning is detected, re-translate that specific section until the meaning aligns perfectly.
-
-4. **Professional Technical Tone**:
-   - Use clear, concise, and active voice standard in developer and technical documentation (e.g., following standard technical writing guidelines).
-   - Use standard industry terminology. If a term is ambiguous, verify standard industry usage.
+3. **Professional Technical Tone**:
+   - Use clear, concise, and active voice standard in developer and technical documentation (e.g., standard Google/Microsoft developer doc style).
+   - Use standard industry terminology. If a term is ambiguous, refer to [resources/glossary.md](./resources/glossary.md) or standard industry usage.
    - Maintain correct English punctuation and spacing (e.g., half-width English punctuation followed by a space, proper capitalization).
 
 ---
@@ -47,27 +43,41 @@ You are a senior technical translator and documentation specialist. Your goal is
 - Translate prose content section by section.
 - Retain all Markdown elements (heading levels `#`, list markers `-` / `*`, blockquotes `>`, tables `|`).
 - Leave all code blocks, variables, and path references intact.
+- Temporarily save or hold the translated version for quality review.
 
-### Step 3: Consistency & Meaning Review
-- **Automated Vector Semantic Check (Recommended)**:
-  Run the included zero-dependency semantic checker to calculate paragraph-level cosine similarity:
-  ```bash
-  python .agents/skills/translate-skill/scripts/semantic_checker.py <source.md> <target.md> --threshold 0.75
-  ```
-  *(Supports OpenAI, Ollama, SiliconFlow, or any OpenAI-compatible embedding endpoint via environment variables `OPENAI_API_BASE` and `OPENAI_API_KEY`)*.
-- **Bilingual Comparison**:
-  Verify line-by-line / paragraph-by-paragraph that:
-  - No technical meaning or nuance is lost.
-  - No sentences or list items were skipped.
-  - Terminology is consistent with [resources/glossary.md](./resources/glossary.md).
-- **Syntax Check**: Verify that all Markdown syntax, tables, and links render properly.
+### Step 3: AI Semantic Self-Review & Paragraph Scoring (AI 自审对照)
+Perform a rigorous paragraph-by-paragraph comparison between the source and translated text.
+
+#### Scoring Criteria (0 - 100 Scale):
+- **Semantic Fidelity (40%)**: Accuracy of information, no missed points, no additions/hallucinations, no logic or negation inversions.
+- **Code & Syntax Safety (30%)**: Code blocks untouched, inline code/variables uncorrupted, links and math formulas intact.
+- **Technical Fluency & Terminology (30%)**: Professional, natural developer English, consistent terminology matching the glossary.
+
+#### Evaluation Standards:
+- **95 - 100**: Perfect translation. Accurate, fluent, and technically precise.
+- **85 - 94**: Good quality. Meaning is accurate, minor improvements possible.
+- **< 85**: **FAILED**. Contains omissions, altered code/variables, terminology errors, or semantic drift.
+
+#### Required Review Report Format:
+Construct an evaluation table in your final response:
+```markdown
+### AI Translation Self-Review Report
+| # | Source Excerpt | Translated Excerpt | Score | Review Notes |
+| :- | :------------- | :----------------- | :---- | :----------- |
+| 1 | [Source line]  | [Translated line]  | 96    | Fully preserved, standard terminology |
+| 2 | ...            | ...                | 92    | Accurate technical phrasing |
+
+**Overall Average Score**: XX.X / 100 (Threshold: >= 85 for all paragraphs, Average >= 90)
+```
 
 ### Step 4: Iterative Refinement Loop
-- **If any check in Step 3 fails** (similarity below threshold, or meaning discrepancy found):
-  1. Identify the specific failed paragraph or line number reported by the review/script.
-  2. Re-translate only that problematic section from the original text.
-  3. Re-run the review until all sections pass.
+- **If any paragraph scores below 85 (or the overall average is below 90)**:
+  1. Pinpoint the exact paragraph that failed the review.
+  2. Analyze the root cause (e.g., distorted meaning, mistranslated variable, missing sentence).
+  3. Re-translate only that problematic paragraph from the source text.
+  4. Update the review score for that paragraph and re-calculate the average.
+  5. Repeat this loop until **every paragraph scores >= 85** and the **average score >= 90**.
 
 ### Step 5: Output Delivery
-- Write the final translated document to the destination file (e.g., `<basename>_en.md`).
-- Provide the user with a brief summary of the completed translation, highlighting the output file path.
+- Write the verified translated document to the destination file (e.g., `<basename>_en.md`).
+- Present the final review report and average score to the user, confirming successful completion.
