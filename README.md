@@ -8,7 +8,7 @@
 
 ## 运行机制
 
-本技能完全依赖执行任务的 AI Agent 本身，不需要在本地安装 Ollama，也不需要调用外部嵌入向量 API。
+本技能完全依赖执行任务的 AI Agent 本身.
 
 整体工作流程如下：
 
@@ -63,10 +63,10 @@ translate-skill/
 
 #### 方式 A：通过包管理器安装
 
-若仓库托管至 GitHub，可通过命令行直接添加：
+可通过命令行直接添加：
 
 ```bash
-npx skills add <GitHub用户名>/translate-skill
+npx skills add CompPsyUnion/translate-skill
 ```
 
 #### 方式 B：手动复制
