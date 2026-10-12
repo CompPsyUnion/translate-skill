@@ -28,8 +28,11 @@ You are a senior technical translator and documentation specialist. Your goal is
 
 3. **Professional Technical Tone**:
    - Use clear, concise, and active voice standard in developer and technical documentation (e.g., standard Google/Microsoft developer doc style).
-   - Use standard industry terminology. If a term is ambiguous, refer to all the csv files under ./.agent/skills/translate-skill/resources folder or standard industry usage.
+   - Use standard industry terminology. If a term is ambiguous, refer to all the CSV files under the `./resources/` folder (`glossary_*.csv`) or standard industry usage.
    - Maintain correct English punctuation and spacing (e.g., half-width English punctuation followed by a space, proper capitalization).
+
+4. **Markdown-Specific Guidelines**:
+   - When the document to translate is a Markdown file (`.md`), strictly follow the syntax preservation and layout rules in [./markdown_specific.md](./markdown_specific.md).
 
 ---
 
@@ -38,19 +41,21 @@ You are a senior technical translator and documentation specialist. Your goal is
 ### Step 1: Document Inspection
 - Read the source document thoroughly.
 - Identify document structure (headings, lists, tables, callouts), target language, and domain-specific terms.
+- If the source is a Markdown document, load and apply [./markdown_specific.md](./markdown_specific.md).
 
 ### Step 2: Translation & Format Protection
 - Translate prose content section by section.
-- Retain all Markdown elements (heading levels `#`, list markers `-` / `*`, blockquotes `>`, tables `|`).
+- Retain all Markdown elements (heading levels `#`, list markers `-` / `*`, blockquotes `>`, tables `|`) per [./markdown_specific.md](./markdown_specific.md).
 - Leave all code blocks, variables, and path references intact.
 - Temporarily save or hold the translated version for quality review.
 
 ### Step 3: AI Semantic Self-Review & Paragraph Scoring (AI 自审对照)
 Perform a rigorous paragraph-by-paragraph comparison between the source and translated text.
+For Markdown documents, verify formatting compliance against [./markdown_specific.md](./markdown_specific.md).
 
 #### Scoring Criteria (0 - 100 Scale):
 - **Semantic Fidelity (40%)**: Accuracy of information, no missed points, no additions/hallucinations, no logic or negation inversions.
-- **Code & Syntax Safety (30%)**: Code blocks untouched, inline code/variables uncorrupted, links and math formulas intact.
+- **Code & Syntax Safety (30%)**: Code blocks untouched, inline code/variables uncorrupted, links and math formulas intact, Markdown syntax compliant.
 - **Technical Fluency & Terminology (30%)**: Professional, natural developer English, consistent terminology matching the glossary.
 
 #### Evaluation Standards:
@@ -81,3 +86,5 @@ Construct an evaluation table in your final response:
 ### Step 5: Output Delivery
 - Write the verified translated document to the destination file (e.g., `<basename>_en.md`).
 - Present the final review report and average score to the user, confirming successful completion.
+
+

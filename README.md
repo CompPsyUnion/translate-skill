@@ -57,6 +57,7 @@ Agent 会读取 `SKILL.md`，执行翻译并输出自审表格。
   - 超链接与图片语法仅翻译显示文本，保留目标 URL 与路径。
   - LaTeX 数学公式（`$...$` 与 `$$...$$`）原样保留。
   - YAML Frontmatter 头部结构保持原样。
+  - 针对 Markdown 专项文档，严格遵守 `markdown_specific.md` 的排版保护与语法自审规范。
 - **非破坏性写入**：
   - 默认输出为新文件（例如 `document_en.md`），不直接修改源文件。
 - **逐段自审打分标准**：
@@ -76,8 +77,11 @@ translate-skill/
 │   └── skills/
 │       └── translate-skill/
 │           ├── SKILL.md                  # 核心技能指令与自审自纠工作流
-│           ├── resources/
-│           │   └── glossary.md           # 术语对照表
+│           ├── markdown_specific.md      # Markdown 专用排版、语法保护与自审规范
+│           ├── resources/                # 术语对照表目录 (CSV)
+│           │   ├── glossary_cpu.csv      # CPU 体系相关术语表
+│           │   ├── glossary_cs.csv       # 计算机科学通用术语表
+│           │   └── glossary_unnc.csv     # 专业课程与院校术语表
 │           └── examples/                 # 翻译参考示例
 │               ├── example01/            # 内存栈与堆解析对照
 │               └── example02/            # Docker 架构与常用命令对照
