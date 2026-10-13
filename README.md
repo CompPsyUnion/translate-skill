@@ -22,6 +22,10 @@ npx skills add CompPsyUnion/translate-skill
 
 将 `.agents/skills/translate-skill` 目录复制到目标项目的根目录下。
 
+#### 方式 C：直接使用
+
+如果要翻译的文件是一个markdown文件，可以直接使用 [md专用](/.agents/skills/translate-skill/markdown_specific.md) 作为提示词，并将其中对应的内容替换来进行翻译。
+
 ---
 
 ### 2. 调用翻译
