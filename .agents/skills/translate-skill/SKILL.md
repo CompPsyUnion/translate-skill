@@ -75,6 +75,7 @@ The skill ships with three domain glossaries — UNNC (university), CS (computer
 ## 2. Standard Translation Workflow
 
 ### Step 1: Document Inspection & Direction Detection
+
 - Determine the translation direction:
   1. An explicit user instruction always wins (e.g., "翻译为英文" / "translate into English" → Chinese→English; "翻译为中文" / "translate into Chinese" → English→Chinese).
   2. If the user does not specify, infer the direction from the document's dominant language: the dominant language is the source, and the other language is the target.
@@ -84,27 +85,33 @@ The skill ships with three domain glossaries — UNNC (university), CS (computer
 - If the source is a Markdown document (`.md`, `.markdown`), automatically activate the built-in **Markdown-Specific Guidelines**.
 
 ### Step 2: Translation & Format Protection
+
 - Translate prose section by section from the source language into natural, fluent target-language text, applying the direction-specific tone and punctuation rules above.
 - Retain all Markdown elements (heading levels `#`, list markers `-` / `*`, blockquotes `>`, tables `|`) strictly per the built-in Markdown rules.
 - Leave all code blocks, variables, and path references intact.
 - Temporarily hold the translated version for quality review.
 
 ### Step 3: AI Semantic Self-Review & Paragraph Scoring (AI 自审对照)
+
 Perform a rigorous paragraph-by-paragraph comparison between the source text and the translation.
 For Markdown documents, verify strict compliance against the Markdown format preservation checklist (headings, tables, links, code blocks).
 
-#### Scoring Criteria (0 - 100 Scale):
+#### Scoring Criteria (0 - 100 Scale)
+
 - **Semantic Fidelity (40%)**: Accuracy of information, no missed points, no additions/hallucinations, no logic or negation inversions.
 - **Code & Syntax Safety (30%)**: Code blocks untouched, inline code/variables uncorrupted, links and math formulas intact, Markdown syntax compliant.
 - **Technical Fluency & Terminology (30%)**: Professional, natural prose in the target language, consistent terminology matching the glossary.
 
-#### Evaluation Standards:
+#### Evaluation Standards
+
 - **95 - 100**: Perfect translation. Accurate, fluent, and technically precise.
 - **85 - 94**: Good quality. Meaning is accurate, minor improvements possible.
 - **< 85**: **FAILED**. Contains omissions, altered code/variables, terminology errors, or semantic drift.
 
-#### Required Review Report Format:
+#### Required Review Report Format
+
 - **For standard documents (<= 15 paragraphs)**: Output the full review table directly in your final response:
+
   ```markdown
   ### AI Translation Self-Review Report
   | # | Source Excerpt | Translated Excerpt | Score | Review Notes |
@@ -114,9 +121,11 @@ For Markdown documents, verify strict compliance against the Markdown format pre
 
   **Overall Average Score**: XX.X / 100 (Threshold: >= 85 for all paragraphs, Average >= 90)
   ```
+
 - **For long documents (> 15 paragraphs)**: To prevent response truncation, present an overall summary report with key stats and sample reviews in chat, and write the full paragraph-by-paragraph table to a review companion file (e.g., `<basename>_review.md`).
 
 ### Step 4: Iterative Refinement Loop
+
 - **If any paragraph scores below 85 (or the overall average is below 90)**:
   1. Pinpoint the exact paragraph that failed the review.
   2. Analyze the root cause (e.g., distorted meaning, mistranslated variable, missing sentence).
@@ -125,5 +134,6 @@ For Markdown documents, verify strict compliance against the Markdown format pre
   5. Repeat this loop until **every paragraph scores >= 85** and the **average score >= 90**, up to a maximum of **3 iterations**. If any paragraph still cannot pass after 3 iterations, keep the best version and flag it in the review notes for user inspection.
 
 ### Step 5: Output Delivery
+
 - Write the verified translated document to the destination file (`<basename>_en.md` for Chinese→English, `<basename>_zh.md` for English→Chinese, or the user-specified path).
 - Present the final review report and average score to the user, confirming successful completion.
