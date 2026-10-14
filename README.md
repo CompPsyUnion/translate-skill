@@ -1,5 +1,175 @@
 # translate-skill
 
+[English](#english) | [中文](#中文)
+
+---
+
+## English
+
+An AI agent skill specification for bidirectional technical document translation between Chinese and English (Chinese→English / English→Chinese), shipping with three domain glossaries. **Especially suitable for UNNC (University of Nottingham Ningbo China), School of Computer Science (CS), and CPU (Computer Psycho Union) scenarios**, including university institution and degree-system documents, course notes and study materials, and club activity or recruitment publicity.
+
+Through structured prompt instructions and workflow constraints, this skill guides AI coding assistants (e.g., Claude Code, Cursor, Antigravity, or any environment supporting the agent skill specification) to deliver high-quality **bidirectional translation between Chinese and English technical documents**. Its core objective: keep code, links, and formatting untouched while the AI performs paragraph-by-paragraph self-review with quantitative scoring.
+
+Maintained by the **Computer Psycho Union (CPU) at the University of Nottingham Ningbo China (UNNC)**.
+
+---
+
+## Background & Use Cases
+
+Beyond general technical translation, the skill ships with three domain glossaries, making it **especially suitable** for:
+
+| Use Case | Glossary | Sample Mapping |
+| :-- | :-- | :-- |
+| **UNNC university documents**: institutions, degree system, academic affairs, campus services | `glossary_unnc.csv` | 一等荣誉学位 → First-class Honours Degree; 教务处 → Academic Services Office |
+| **CS study materials**: course notes, algorithms and data structures, AI/ML terms | `glossary_cs.csv` | 渐进分析 → Asymptotic Analysis; 大语言模型 → Large Language Model |
+| **CPU club documents**: department structure, signature events, recruitment and publicity | `glossary_cpu.csv` | 信息安全问卷 → Cybersecurity Quiz; 技术部 → Tech Group |
+
+Typical use cases: bilingual WeChat article publishing, side-by-side course notes, translating tech-sharing session and workshop materials, internationalizing recruitment publicity.
+
+> **Tip**: many university and club official names have **fixed, non-literal renderings** (e.g., 信息安全问卷 → Cybersecurity Quiz). The skill enforces the official glossary rendering instead of literal translation; the glossaries are bidirectional, so English→Chinese translation back-translates through the same tables.
+
+---
+
+## Usage
+
+### 1. Deploy to a Project
+
+#### Option A: install via package manager
+
+Add it directly from the command line:
+
+```bash
+npx skills add CompPsyUnion/translate-skill
+```
+
+#### Option B: manual copy
+
+Copy the `.agents/skills/translate-skill` directory into the root of your target project.
+
+#### Option C: use the prompt template directly (no skill install)
+
+If loading the skill into your project root is inconvenient, use [docs/prompt_for_md.md](./docs/prompt_for_md.md) directly as a prompt template. It is a **single, all-in-one bidirectional template** (direction auto-detected): copy and paste it into any mainstream LLM (ChatGPT, Claude, Gemini, DeepSeek, Cursor, etc.), then paste the document to translate into the source slot at the end of the prompt to translate Markdown directly.
+
+---
+
+### 2. Invoke a Translation
+
+Enter a translation request in an agent that supports skill invocation (state the target language; the direction can be auto-detected), for example:
+
+```text
+请使用 translate-skill 将 README.md 翻译为英文。
+Please use translate-skill to translate README.md into Chinese.
+```
+
+The agent detects the direction from your instruction or the document language (Chinese→English / English→Chinese), activates `SKILL.md`, performs the translation, and outputs the self-review table.
+
+---
+
+## How It Works
+
+The skill relies entirely on the AI agent executing the task.
+
+The overall workflow:
+
+1. **Direction detection & source parsing**: determine the direction from the user instruction or the document's dominant language; identify the Markdown structure (headings, paragraphs, lists, code blocks, tables, formulas) and source-language technical terms; for Markdown documents, activate the **built-in Markdown layout-protection rules** of `SKILL.md` automatically.
+2. **Rule-based translation**: keep code blocks, inline code, formulas, and link URLs untouched; translate only natural-language text into the target language.
+3. **Paragraph-level self-review & scoring**: the AI compares source and translation paragraph by paragraph, scores each paragraph (0-100), and computes the average.
+4. **Re-translation on failure**: if any paragraph scores below 85 or the average falls below 90, the AI re-translates the failing paragraphs (up to 3 loops) until the thresholds are met.
+5. **Non-destructive output**: save the final translation to a separate file (`_en.md` by default for Chinese→English, `_zh.md` for English→Chinese); the source file is never overwritten.
+
+---
+
+## Core Rules
+
+- **Language direction (bidirectional)**:
+   - Supports both **Chinese → professional English** and **English → natural Simplified Chinese**, with the direction detected from the user instruction or the document language.
+   - Code, proper nouns, and content already in the target language stay untouched; only source-language natural language is translated.
+   - **Additional conventions for English → Chinese**: full-width Chinese punctuation; exactly one space between Chinese and Latin characters or numerals (e.g., 使用 Python 3.11); back-translate terminology through the glossaries to the standard Chinese names; keep terms without an established translation in English, or annotate the original on first occurrence (e.g., 反向传播（backpropagation）).
+- **Code & format protection (Markdown rules built into the SKILL)**:
+   - Fenced code blocks (```...```) and inline code (`...`) stay verbatim.
+   - Link and image syntax: translate only the display text; keep target URLs and paths unchanged.
+   - LaTeX math (`$...$` and `$$...$$`) stays verbatim.
+   - YAML frontmatter structure stays verbatim.
+   - Heading levels, lists, table alignment, and indentation stay exactly as in the source.
+- **Non-destructive writing**:
+   - Output goes to a new file (e.g., `document_en.md`) by default; never modify or overwrite the source file.
+- **Paragraph-level scoring criteria**:
+   - Semantic fidelity (40%): complete information, no omissions, no hallucinated additions, correct logic.
+   - Syntax & code safety (30%): code, variables, links, and formulas undamaged.
+   - Technical writing quality (30%): idiomatic for the target language, accurate terminology.
+- **Terminology management**:
+   - Maintain proper-noun mappings centrally in the skill's `resources` directory.
+
+---
+
+## Repository Layout
+
+```text
+translate-skill/
+├── docs/
+│   └── prompt_for_md.md                  # All-in-one bidirectional Markdown translation prompt (direction auto-detected, no skill install needed)
+├── .agents/
+│   └── skills/
+│       └── translate-skill/
+│           ├── SKILL.md                  # Core skill instructions and self-review workflow (Markdown rules built in)
+│           ├── resources/                # Glossary directory (CSV)
+│           │   ├── glossary_cpu.csv      # CPU club glossary (departments / events / recruitment)
+│           │   ├── glossary_cs.csv       # General computer science glossary
+│           │   └── glossary_unnc.csv     # UNNC institutional and academic glossary
+│           └── examples/                 # Bilingual translation reference examples (both directions)
+│               ├── example01/            # Stack vs. heap (stack_and_heap.md / stack_and_heap_en.md)
+│               └── example02/            # Docker architecture and commands (docker.md / docker_en.md)
+├── README.md                             # Project documentation (bilingual)
+└── LICENSE                               # MIT License
+```
+
+---
+
+## Self-Review Report Format
+
+After each translation, the agent produces a self-review table like this:
+
+```markdown
+### AI Translation Self-Review Report
+
+| # | Source Excerpt | Translated Excerpt | Score | Review Notes |
+| :- | :------------- | :----------------- | :---- | :----------- |
+| 1 | # 高性能缓存服务设计规范 | # High-Performance Cache Service Design Specification | 98 | 术语对应准确 |
+| 2 | 本项目提供基于分布式架构的... | This project provides high-performance cache... | 95 | 结构完整，表述自然 |
+| 3 | `redis-cluster` >= 7.0 | `redis-cluster` >= 7.0 | 100 | 表格与行内代码保持不变 |
+| 4 | [官方安全指南](https://...) | [Official Security Guide](https://...) | 98 | 仅翻译文字，链接完好 |
+| 5 | $$HitRate = \frac{TotalHits}...$$ | $$HitRate = \frac{TotalHits}...$$ | 100 | 数学公式完整保留 |
+
+**Overall Average Score**: 98.2 / 100 (Threshold: All >= 85, Average >= 90)
+**Status**: PASSED
+```
+
+> **Note**: the table above shows Chinese→English; English→Chinese works the same way (swap the languages of the two columns). For long documents (> 15 paragraphs), the full paragraph-by-paragraph report is written to a separate `<basename>_review.md`, with only a summary and the average shown in chat, to avoid exceeding the token limit of a single response.
+
+---
+
+## Glossary Configuration
+
+Add or edit project terminology mappings in the CSV files under [.agents/skills/translate-skill/resources](./.agents/skills/translate-skill/resources).
+
+The glossaries are bidirectional Chinese-English mapping tables: look up the standard English term when translating into English, and back-translate to the standard Chinese term when translating into Chinese.
+
+Three glossaries are currently provided:
+
+- `glossary_cpu.csv`: CPU club proper nouns (departments, signature events, recruitment publicity)
+- `glossary_cs.csv`: general computer science terminology
+- `glossary_unnc.csv`: UNNC institutions, degree classifications, and academic affairs
+
+---
+
+## License
+
+[MIT License](./LICENSE)
+
+---
+
+## 中文
+
 专用于中英技术文档互译（中译英 / 英译中）的 AI Agent 技能规范，内置三套领域术语表，**适用于 UNNC（宁波诺丁汉大学）、计算机科学系（CS）、CPU（计算机爱好者协会）相关场景**，包括院校机构与学位体系文书、课程笔记与学习资料、社团活动与招新宣传物料。
 
 本技能通过结构化的提示词指令与流程约束，引导 AI 编程助手（如 Claude Code、Cursor、Antigravity 等支持 Agent 技能规范的环境）高质量完成**中文与英文技术文档的双向翻译**。核心目标是在保证代码、链接与排版格式不被改动的前提下，由 AI 执行逐段对照自审与量化评分。
@@ -113,7 +283,7 @@ translate-skill/
 │           └── examples/                 # 中英对照翻译参考示例（双向通用）
 │               ├── example01/            # 内存栈与堆解析对照 (stack_and_heap.md / stack_and_heap_en.md)
 │               └── example02/            # Docker 架构与常用命令对照 (docker.md / docker_en.md)
-├── README.md                             # 项目说明文档
+├── README.md                             # 项目说明文档（中英双语）
 └── LICENSE                               # MIT 许可证
 ```
 
