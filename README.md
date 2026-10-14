@@ -42,7 +42,7 @@ npx skills add CompPsyUnion/translate-skill
 
 #### 方式 C：直接使用提示词模板（免载入 Skill）
 
-如果不方便将 Skill 载入到目标项目根目录，可以直接使用 [docs/prompt_for_md.md](./docs/prompt_for_md.md) 作为提示词模板。其中提供**中译英**与**英译中**两个方向的模板，将其复制粘贴到任意主流大模型（如 ChatGPT、Claude、Gemini、DeepSeek、Cursor 等）中，替换其中的源文档内容即可直接完成 Markdown 翻译。
+如果不方便将 Skill 载入到目标项目根目录，可以直接使用 [docs/prompt_for_md.md](./docs/prompt_for_md.md) 作为提示词模板。它是一份**一体式双向模板**（中译英 / 英译中方向自动判定），将其复制粘贴到任意主流大模型（如 ChatGPT、Claude、Gemini、DeepSeek、Cursor 等）中，把待翻译文档粘贴到提示词末尾的源文档槽位即可直接完成 Markdown 翻译。
 
 ---
 
@@ -101,7 +101,7 @@ Agent 会根据指令或文档语言自动判定翻译方向（中译英 / 英�
 ```text
 translate-skill/
 ├── docs/
-│   └── prompt_for_md.md                  # 独立 Markdown 中英互译提示词模板（中译英 / 英译中，免 Skill 直接使用）
+│   └── prompt_for_md.md                  # 一体式 Markdown 中英互译提示词模板（方向自动判定，免 Skill 直接使用）
 ├── .agents/
 │   └── skills/
 │       └── translate-skill/
