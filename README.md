@@ -4,7 +4,7 @@
 
 本技能通过结构化的提示词指令与流程约束，引导 AI 编程助手（如 Claude Code、Cursor、Antigravity 等支持 Agent 技能规范的环境）高质量完成**中文与英文技术文档的双向翻译**。核心目标是在保证代码、链接与排版格式不被改动的前提下，由 AI 执行逐段对照自审与量化评分。
 
-本技能由**宁波诺丁汉大学（UNNC）计算机爱好者协会（Computer Psycho Union, CPU）**出品维护。
+本技能由 **宁波诺丁汉大学（UNNC）计算机爱好者协会（Computer Psycho Union, CPU）** 出品维护。
 
 ---
 
