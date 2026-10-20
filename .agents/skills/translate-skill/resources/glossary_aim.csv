@@ -6,6 +6,27 @@ Chinese, English, Category
 高校系列赛/系列赛, University Series, Competition
 高校联盟赛/联盟赛, University League (UL), Competition
 超级对抗赛/超抗, University Championship (UC), Competition
-步兵, infantry, Robot
-哨兵, sentry, Robot
 RoboCon, RoboCon, Competition
+英雄机器人, Hero Robot, Robot
+工程机器人, Engineer Robot, Robot
+步兵/步兵机器人, Infantry Robot (official EN manual: Standard Robot), Robot
+哨兵/哨兵机器人, Sentry Robot, Robot
+空中机器人/无人机, Aerial Robot, Robot
+基地, Base, Field
+前哨站, Outpost, Field
+资源岛, Resource Island, Field
+补给区, Supply Zone, Field
+兑换区, Exchange Zone, Field
+飞镖发射站, Dart Launching Station, Field
+雷达基座, Radar Base, Field
+裁判系统, Referee System, System
+装甲模块, Armor Module, System
+能量机关, Power Rune, System
+图传/图传模块, Video Transmitter Module (VTM), System
+小组赛, Group Stage, Match
+淘汰赛, Knockout Stage, Match
+操作手, Operator, Role
+比赛规则手册, Rules Manual, Document
+参赛手册, Participant Manual, Document
+机器人制作规范手册, Robot Building Specifications Manual, Document
+裁判系统串口协议, Referee System Serial Protocol, Document

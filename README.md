@@ -23,7 +23,7 @@ Beyond general technical translation, the skill ships with four domain glossarie
 | **UNNC university documents**: institutions, degree system, academic affairs, campus services | `glossary_unnc.csv` | 一等荣誉学位 → First-class Honours Degree; 教务处 → Academic Services Office |
 | **CS study materials**: course notes, algorithms and data structures, AI/ML terms | `glossary_cs.csv` | 渐进分析 → Asymptotic Analysis; 大语言模型 → Large Language Model |
 | **CPU club documents**: department structure, signature events, recruitment and publicity | `glossary_cpu.csv` | 信息安全问卷 → Cybersecurity Quiz; 技术部 → Tech Group |
-| **AIM / RoboMaster team documents**: competition names, robot classes, team facilities | `glossary_aim.csv` | 高校联盟赛 → University League; 哨兵 → sentry |
+| **AIM / RoboMaster team documents**: competitions, robot classes, field elements, referee system, match stages | `glossary_aim.csv` | 高校联盟赛 → University League; 能量机关 → Power Rune |
 
 Typical use cases: bilingual WeChat article publishing, side-by-side course notes, translating tech-sharing session and workshop materials, internationalizing recruitment publicity.
 
@@ -158,7 +158,7 @@ The glossaries are bidirectional Chinese-English mapping tables: look up the sta
 
 Four glossaries are currently provided:
 
-- `glossary_aim.csv`: AIM team and RoboMaster vocabulary (competitions, robot classes; converted from [unnc-aim/aim-translation-skill](https://github.com/unnc-aim/aim-translation-skill))
+- `glossary_aim.csv`: AIM team and RoboMaster vocabulary (competitions, robots, field elements, referee system, match stages; seeded from [unnc-aim/aim-translation-skill](https://github.com/unnc-aim/aim-translation-skill) and extended with official terms verified against the RoboMaster Rules Manuals and Robot Building Specifications Manuals)
 - `glossary_cpu.csv`: CPU club proper nouns (departments, signature events, recruitment publicity)
 - `glossary_cs.csv`: general computer science terminology
 - `glossary_unnc.csv`: UNNC institutions, degree classifications, and academic affairs
@@ -190,7 +190,7 @@ Four glossaries are currently provided:
 | **UNNC 院校文档**：机构设置、学位体系、学术事务与校园服务 | `glossary_unnc.csv` | 一等荣誉学位 → First-class Honours Degree；教务处 → Academic Services Office |
 | **CS 计算机科学资料**：课程笔记、算法与数据结构、AI/ML 术语 | `glossary_cs.csv` | 渐进分析 → Asymptotic Analysis；大语言模型 → Large Language Model |
 | **CPU 社团文档**：部门架构、品牌活动、招新与宣传物料 | `glossary_cpu.csv` | 信息安全问卷 → Cybersecurity Quiz；技术部 → Tech Group |
-| **AIM / RoboMaster 战队文档**：赛事名称、机器人兵种、战队场地 | `glossary_aim.csv` | 高校联盟赛 → University League；哨兵 → sentry |
+| **AIM / RoboMaster 战队文档**：赛事、机器人兵种、场地元素、裁判系统、赛制阶段 | `glossary_aim.csv` | 高校联盟赛 → University League；能量机关 → Power Rune |
 
 典型用例：社团公众号推文双语化、课程笔记中英对照、技术分享会与工作坊材料翻译、招新宣传物料国际化等。
 
@@ -325,7 +325,7 @@ translate-skill/
 
 目前提供以下四个术语表：
 
-- `glossary_aim.csv`：AIM 战队与 RoboMaster 术语对照（赛事、兵种；转换自 [unnc-aim/aim-translation-skill](https://github.com/unnc-aim/aim-translation-skill)）
+- `glossary_aim.csv`：AIM 战队与 RoboMaster 术语对照（赛事、兵种、场地、裁判系统、赛制等；源自 [unnc-aim/aim-translation-skill](https://github.com/unnc-aim/aim-translation-skill)，并按 RoboMaster 官方规则手册与制作规范手册核验扩充）
 - `glossary_cpu.csv`：CPU 社团专有名词对照（部门架构、品牌活动、招新宣传）
 - `glossary_cs.csv`：计算机科学通用专业术语表
 - `glossary_unnc.csv`：UNNC 院校机构、学位体系与学术事务术语表

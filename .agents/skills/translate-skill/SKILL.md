@@ -68,7 +68,7 @@ The skill ships with four domain glossaries — UNNC (university), CS (computer 
    - `glossary_unnc.csv` — University of Nottingham Ningbo China (UNNC) institutional and academic terms: offices, degree classifications, academic affairs, and campus services.
    - `glossary_cs.csv` — general computer science terminology: data structures, algorithms, systems, and AI/ML.
    - `glossary_cpu.csv` — Computer Psycho Union (CPU, 计算机爱好者协会) club vocabulary: departments, signature events, recruitment, and publicity.
-   - `glossary_aim.csv` — UNNC AIM team and RoboMaster vocabulary: competition names, robot classes, and team locations (converted from the glossary of [unnc-aim/aim-translation-skill](https://github.com/unnc-aim/aim-translation-skill)).
+   - `glossary_aim.csv` — UNNC AIM team and RoboMaster vocabulary: competitions, robot classes, field elements, referee system, match stages, and manual titles (seeded from [unnc-aim/aim-translation-skill](https://github.com/unnc-aim/aim-translation-skill), extended with official terms verified against the RoboMaster Rules Manuals and Robot Building Specifications Manuals). Team note: the robot class the official English manuals name **Standard Robot** is called **Infantry Robot** within the team — when translating into Chinese, both English forms render as 步兵.
 
    **The glossary mapping is authoritative**: many official names are non-literal brand names, so the glossary rendering must win over any literal translation — e.g., 计算机爱好者协会 → Computer Psycho Union (CPU), 信息安全问卷 → Cybersecurity Quiz, 理工学院 → Faculty of Science and Engineering (FoSE). Apply the same rule in reverse when translating into Chinese (e.g., Cybersecurity Quiz → 信息安全问卷).
 
