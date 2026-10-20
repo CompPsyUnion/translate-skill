@@ -6,7 +6,7 @@
 
 ## English
 
-An AI agent skill specification for bidirectional technical document translation between Chinese and English (Chinese→English / English→Chinese), shipping with three domain glossaries. **Especially suitable for UNNC (University of Nottingham Ningbo China), School of Computer Science (CS), and CPU (Computer Psycho Union) scenarios**, including university institution and degree-system documents, course notes and study materials, and club activity or recruitment publicity.
+An AI agent skill specification for bidirectional technical document translation between Chinese and English (Chinese→English / English→Chinese), shipping with four domain glossaries. **Especially suitable for UNNC (University of Nottingham Ningbo China), School of Computer Science (CS), CPU (Computer Psycho Union), and AIM RoboMaster team scenarios**, including university institution and degree-system documents, course notes and study materials, club activity or recruitment publicity, and robotics competition documentation.
 
 Through structured prompt instructions and workflow constraints, this skill guides AI coding assistants (e.g., Claude Code, Cursor, Antigravity, or any environment supporting the agent skill specification) to deliver high-quality **bidirectional translation between Chinese and English technical documents**. Its core objective: keep code, links, and formatting untouched while the AI performs paragraph-by-paragraph self-review with quantitative scoring.
 
@@ -16,13 +16,14 @@ Maintained by the **Computer Psycho Union (CPU) at the University of Nottingham 
 
 ## Background & Use Cases
 
-Beyond general technical translation, the skill ships with three domain glossaries, making it **especially suitable** for:
+Beyond general technical translation, the skill ships with four domain glossaries, making it **especially suitable** for:
 
 | Use Case | Glossary | Sample Mapping |
 | :-- | :-- | :-- |
 | **UNNC university documents**: institutions, degree system, academic affairs, campus services | `glossary_unnc.csv` | 一等荣誉学位 → First-class Honours Degree; 教务处 → Academic Services Office |
 | **CS study materials**: course notes, algorithms and data structures, AI/ML terms | `glossary_cs.csv` | 渐进分析 → Asymptotic Analysis; 大语言模型 → Large Language Model |
 | **CPU club documents**: department structure, signature events, recruitment and publicity | `glossary_cpu.csv` | 信息安全问卷 → Cybersecurity Quiz; 技术部 → Tech Group |
+| **AIM / RoboMaster team documents**: competition names, robot classes, team facilities | `glossary_aim.csv` | 高校联盟赛 → University League; 哨兵 → sentry |
 
 Typical use cases: bilingual WeChat article publishing, side-by-side course notes, translating tech-sharing session and workshop materials, internationalizing recruitment publicity.
 
@@ -113,6 +114,7 @@ translate-skill/
 │       └── translate-skill/
 │           ├── SKILL.md                  # Core skill instructions and self-review workflow (Markdown rules built in)
 │           ├── resources/                # Glossary directory (CSV)
+│           │   ├── glossary_aim.csv      # AIM / RoboMaster glossary (competitions / robots / facilities)
 │           │   ├── glossary_cpu.csv      # CPU club glossary (departments / events / recruitment)
 │           │   ├── glossary_cs.csv       # General computer science glossary
 │           │   └── glossary_unnc.csv     # UNNC institutional and academic glossary
@@ -154,8 +156,9 @@ Add or edit project terminology mappings in the CSV files under [.agents/skills/
 
 The glossaries are bidirectional Chinese-English mapping tables: look up the standard English term when translating into English, and back-translate to the standard Chinese term when translating into Chinese.
 
-Three glossaries are currently provided:
+Four glossaries are currently provided:
 
+- `glossary_aim.csv`: AIM team and RoboMaster vocabulary (competitions, robot classes; converted from [unnc-aim/aim-translation-skill](https://github.com/unnc-aim/aim-translation-skill))
 - `glossary_cpu.csv`: CPU club proper nouns (departments, signature events, recruitment publicity)
 - `glossary_cs.csv`: general computer science terminology
 - `glossary_unnc.csv`: UNNC institutions, degree classifications, and academic affairs
@@ -170,7 +173,7 @@ Three glossaries are currently provided:
 
 ## 中文
 
-专用于中英技术文档互译（中译英 / 英译中）的 AI Agent 技能规范，内置三套领域术语表，**适用于 UNNC（宁波诺丁汉大学）、计算机科学系（CS）、CPU（计算机爱好者协会）相关场景**，包括院校机构与学位体系文书、课程笔记与学习资料、社团活动与招新宣传物料。
+专用于中英技术文档互译（中译英 / 英译中）的 AI Agent 技能规范，内置四套领域术语表，**适用于 UNNC（宁波诺丁汉大学）、计算机科学系（CS）、CPU（计算机爱好者协会）、AIM 战队（RoboMaster）相关场景**，包括院校机构与学位体系文书、课程笔记与学习资料、社团活动与招新宣传物料、机器人竞赛文档。
 
 本技能通过结构化的提示词指令与流程约束，引导 AI 编程助手（如 Claude Code、Cursor、Antigravity 等支持 Agent 技能规范的环境）高质量完成**中文与英文技术文档的双向翻译**。核心目标是在保证代码、链接与排版格式不被改动的前提下，由 AI 执行逐段对照自审与量化评分。
 
@@ -180,13 +183,14 @@ Three glossaries are currently provided:
 
 ## 背景与适用场景
 
-除通用技术文档互译外，本技能内置三套领域术语表，对以下场景**尤其适用**：
+除通用技术文档互译外，本技能内置四套领域术语表，对以下场景**尤其适用**：
 
 | 适用场景 | 对应术语表 | 对照示例 |
 | :-- | :-- | :-- |
 | **UNNC 院校文档**：机构设置、学位体系、学术事务与校园服务 | `glossary_unnc.csv` | 一等荣誉学位 → First-class Honours Degree；教务处 → Academic Services Office |
 | **CS 计算机科学资料**：课程笔记、算法与数据结构、AI/ML 术语 | `glossary_cs.csv` | 渐进分析 → Asymptotic Analysis；大语言模型 → Large Language Model |
 | **CPU 社团文档**：部门架构、品牌活动、招新与宣传物料 | `glossary_cpu.csv` | 信息安全问卷 → Cybersecurity Quiz；技术部 → Tech Group |
+| **AIM / RoboMaster 战队文档**：赛事名称、机器人兵种、战队场地 | `glossary_aim.csv` | 高校联盟赛 → University League；哨兵 → sentry |
 
 典型用例：社团公众号推文双语化、课程笔记中英对照、技术分享会与工作坊材料翻译、招新宣传物料国际化等。
 
@@ -277,6 +281,7 @@ translate-skill/
 │       └── translate-skill/
 │           ├── SKILL.md                  # 核心技能指令与自审自纠工作流（内置 Markdown 规则）
 │           ├── resources/                # 术语对照表目录 (CSV)
+│           │   ├── glossary_aim.csv      # AIM / RoboMaster 术语表（赛事/兵种/场地）
 │           │   ├── glossary_cpu.csv      # CPU 社团术语表（部门/活动/招新）
 │           │   ├── glossary_cs.csv       # 计算机科学通用术语表
 │           │   └── glossary_unnc.csv     # UNNC 院校与学术事务术语表
@@ -318,8 +323,9 @@ translate-skill/
 
 术语表为中英对照映射表，**双向通用**：中译英时用于查询标准英文术语，英译中时用于回译标准中文译名。
 
-目前提供以下三个术语表：
+目前提供以下四个术语表：
 
+- `glossary_aim.csv`：AIM 战队与 RoboMaster 术语对照（赛事、兵种；转换自 [unnc-aim/aim-translation-skill](https://github.com/unnc-aim/aim-translation-skill)）
 - `glossary_cpu.csv`：CPU 社团专有名词对照（部门架构、品牌活动、招新宣传）
 - `glossary_cs.csv`：计算机科学通用专业术语表
 - `glossary_unnc.csv`：UNNC 院校机构、学位体系与学术事务术语表

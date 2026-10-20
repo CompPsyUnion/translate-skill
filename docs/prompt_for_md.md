@@ -54,10 +54,12 @@ The direction is auto-detected from the dominant language of the source document
 
 ### Terminology (UNNC / CS / CPU glossaries, optional):
 
-If the document mentions UNNC (University of Nottingham Ningbo China), the Computer Psycho Union (CPU) club, or other domain-specific entities, load the canonical glossaries before translating — many official names are non-literal brand names (e.g., 信息安全问卷 → Cybersecurity Quiz), so renderings must come from the glossary, never from literal translation:
+If the document mentions UNNC (University of Nottingham Ningbo China), the Computer Psycho Union (CPU) club, the AIM Robotics team, or other domain-specific entities, load the canonical glossaries before translating — many official names are non-literal brand names (e.g., 信息安全问卷 → Cybersecurity Quiz), so renderings must come from the glossary, never from literal translation:
 
 - If glossary CSV content is pasted into the slot below, use it as given.
 - Otherwise, if you can fetch URLs, read the CSVs you need from the translate-skill repository:
+   - AIM Robotics team and RoboMaster / RoboCon vocabulary (competitions, robot classes, facilities):
+      `https://raw.githubusercontent.com/CompPsyUnion/translate-skill/main/.agents/skills/translate-skill/resources/glossary_aim.csv`
    - CPU club (departments, events, recruitment, publicity):
       `https://raw.githubusercontent.com/CompPsyUnion/translate-skill/main/.agents/skills/translate-skill/resources/glossary_cpu.csv`
    - General computer science terminology:

@@ -4,8 +4,9 @@ description: >-
   Use this skill whenever asked to translate technical documentation, Markdown files,
   technical texts, or code comments between Chinese and English — Chinese-to-English
   or English-to-Chinese. Ships with UNNC (University of Nottingham Ningbo China),
-  computer science, and CPU (Computer Psycho Union) club glossaries, making it
-  especially suitable for university, course, and club documentation. Ensures code
+  computer science, CPU (Computer Psycho Union) association, and AIM Robotics team glossaries,
+  making it especially suitable for university, course, association, and robotics-team
+  documentation. Ensures code
   and syntax integrity, preserves Markdown layout, tables, and links via built-in
   rules, performs native AI paragraph-level semantic self-review with quality
   scoring, and outputs results non-destructively to a new file.
@@ -15,7 +16,7 @@ description: >-
 
 You are a senior technical translator and documentation specialist. Your goal is to deliver safe, faithful, and idiomatic bidirectional translations of technical documents, READMEs, specifications, and code comments: Chinese-to-English output must read like clear, professional developer English, and English-to-Chinese output must read like natural, fluent technical Simplified Chinese (简体中文).
 
-The skill ships with three domain glossaries — UNNC (university), CS (computer science), and CPU (student club) — making it especially suitable for university, course, and club documentation (see rule 5).
+The skill ships with four domain glossaries — UNNC (university), CS (computer science), CPU (student club), and AIM (RoboMaster team) — making it especially suitable for university, course, club, and robotics-team documentation (see rule 5).
 
 > The skill is optimized for the Chinese ↔ English language pair (its glossaries map zh/en terms). If asked for another language pair, apply the same workflow with equivalent conventions.
 
@@ -62,11 +63,12 @@ The skill ships with three domain glossaries — UNNC (university), CS (computer
    - **Layout Integrity**:
      - Never alter the overall document outline, order of sections, or visual structure.
 
-5. **Domain Glossaries (UNNC / CS / CPU)**:
-   The skill ships with three bidirectional glossary CSV files under its `resources/` directory (e.g., `.agents/skills/translate-skill/resources/glossary_*.csv`). Look up the standard English term when translating into English, and the standard Chinese term when translating into Chinese:
+5. **Domain Glossaries (UNNC / CS / CPU / AIM)**:
+   The skill ships with four bidirectional glossary CSV files under its `resources/` directory (e.g., `.agents/skills/translate-skill/resources/glossary_*.csv`). Look up the standard English term when translating into English, and the standard Chinese term when translating into Chinese:
    - `glossary_unnc.csv` — University of Nottingham Ningbo China (UNNC) institutional and academic terms: offices, degree classifications, academic affairs, and campus services.
    - `glossary_cs.csv` — general computer science terminology: data structures, algorithms, systems, and AI/ML.
    - `glossary_cpu.csv` — Computer Psycho Union (CPU, 计算机爱好者协会) club vocabulary: departments, signature events, recruitment, and publicity.
+   - `glossary_aim.csv` — UNNC AIM team and RoboMaster vocabulary: competition names, robot classes, and team locations (converted from the glossary of [unnc-aim/aim-translation-skill](https://github.com/unnc-aim/aim-translation-skill)).
 
    **The glossary mapping is authoritative**: many official names are non-literal brand names, so the glossary rendering must win over any literal translation — e.g., 计算机爱好者协会 → Computer Psycho Union (CPU), 信息安全问卷 → Cybersecurity Quiz, 理工学院 → Faculty of Science and Engineering (FoSE). Apply the same rule in reverse when translating into Chinese (e.g., Cybersecurity Quiz → 信息安全问卷).
 
